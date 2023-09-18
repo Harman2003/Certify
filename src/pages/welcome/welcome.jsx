@@ -1,16 +1,43 @@
 import React, { useState } from "react";
 import Signup from "./signup/signup";
 import Login from "./sign-in/login";
+import LoginOrg from "./OrgSignIn/login";
+import SignupOrg from "./OrgSignUp/signup";
 
 const Welcome = ({ current }) => {
-  const [isLogin, setLogin] = useState(current);
+  const [isLogin, setLogin] = useState(current.isLog);
+  const [isOrg, setOrg] = useState(current.isOrg);
   return (
     <>
-      {isLogin ? (
-        <Login isLogin={isLogin} setLogin={setLogin} />
+      {isOrg ? ( isLogin ? (
+      <LoginOrg
+        isLogin={isLogin}
+        setLogin={setLogin}
+        isOrg={isOrg}
+        setOrg={setOrg}
+      />
       ) : (
-        <Signup isLogin={isLogin} setLogin={setLogin} />
-      )}
+      <SignupOrg
+        isLogin={isLogin}
+        setLogin={setLogin}
+        isOrg={isOrg}
+        setOrg={setOrg}
+      />
+      )): (isLogin ? (
+      <Login
+        isLogin={isLogin}
+        setLogin={setLogin}
+        isOrg={isOrg}
+        setOrg={setOrg}
+      />
+      ) : (
+      <Signup
+        isLogin={isLogin}
+        setLogin={setLogin}
+        isOrg={isOrg}
+        setOrg={setOrg}
+      />
+      ))}
     </>
   );
 };

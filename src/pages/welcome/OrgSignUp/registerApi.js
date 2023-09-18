@@ -6,7 +6,7 @@ export const register = async (User) => {
             username: User['Username'].trim(),
             email: User['E-mail Address'].trim(),
             password: User['Password'].trim(),
-            role:0
+            role:1,
         })
     return response.status;
 }

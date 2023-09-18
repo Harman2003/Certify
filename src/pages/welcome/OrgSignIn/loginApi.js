@@ -14,7 +14,7 @@ export const useLogin = () => {
       {
         nameOrmail: data.username,
         password: data.password,
-        role:0
+        role:1,
       },
       {
         headers: { "Content-Type": "application/json" },
@@ -30,11 +30,11 @@ export const useLogin = () => {
       console.log(response);
       const accessToken = response.data?.accessToken;
       const user = response.data?.username;
-      const role= 0;
-      setAuth({ user,role, accessToken });
+      const role=1;
+      setAuth({ user,role,accessToken });
       setStatus(response.status);
       //Store details in localstorage
-      localStorage.setItem("auth", JSON.stringify({ user, role, accessToken }));
+      localStorage.setItem("auth", JSON.stringify({ user,role, accessToken }));
     },
     onError: (err) => {
       if (!err?.response) {

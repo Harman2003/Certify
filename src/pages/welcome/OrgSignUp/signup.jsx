@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { GoogleAuth } from "../sign-in/loginApi";
 
 
-const Signup = ({ isLogin, setLogin,isOrg,setOrg }) => {
+const SignupOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
   const [User, setUser] = useState({
     "Full Name": "",
     Username: "",
@@ -23,21 +23,17 @@ const Signup = ({ isLogin, setLogin,isOrg,setOrg }) => {
         <div className="w-96 rounded-md py-8 shadow-lg">
           <div className="mx-10 flex flex-col items-center">
             <div className="my-4 flex items-center">
-              {/* <div className="bg-logo bg-no-repeat bg-cover w-64 h-14 "></div> */}
+              <div className="bg-logo bg-no-repeat bg-cover w-64 h-14 "></div>
               {/* <div className="text-5xl font-bold"></div> */}
             </div>
 
             <div className="w-full text-sm">
               <Input
-                placeholder="Full Name"
+                placeholder="OrganisationName"
                 State={{ User, setUser, isEmpty }}
               />
               <Input
-                placeholder="Username"
-                State={{ User, setUser, isEmpty }}
-              />
-              <Input
-                placeholder="E-mail Address"
+                placeholder="Organisation email"
                 State={{ User, setUser, isEmpty }}
               />
               <Input
@@ -71,7 +67,7 @@ const Signup = ({ isLogin, setLogin,isOrg,setOrg }) => {
               </span>
             </div>
             <div className="mt-4">
-              Are You Organisation?{" "}
+              Are You User?{" "}
               <span
                 onClick={() => setOrg(!isOrg)}
                 className="cursor-pointer text-blue-800"
@@ -88,4 +84,4 @@ const Signup = ({ isLogin, setLogin,isOrg,setOrg }) => {
   );
 };
 
-export default Signup;
+export default SignupOrg;

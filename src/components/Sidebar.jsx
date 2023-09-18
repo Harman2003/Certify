@@ -5,7 +5,7 @@ import { HiUserGroup as EventIcon } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 
 const SideProfile = () => {
-    const location = useLocation();
+  const location = useLocation();
   const list = [
     {
       name: "DashBoard",

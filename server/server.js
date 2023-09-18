@@ -11,15 +11,14 @@ const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 // const isActive = require("./middleware/isActive");
 
-connectDB();
-
 App.use(express.json());
 App.use(express.urlencoded({ extended: false }));
 App.use(cookieParser());
 App.use(cors(corsOptions));
-App.use("/auth/", AuthRouter);
+App.use("/", AuthRouter);
 App.use(verifyJWT);
 
+connectDB();
 
 mongoose.connection.once("open", async () => {
   console.log("Connected To MONGODB");
