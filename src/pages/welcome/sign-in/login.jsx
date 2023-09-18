@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import Button from "./Submit";
 import Animation from "../animation";
+import { FcGoogle } from "react-icons/fc";
+import { GoogleAuth } from "./loginApi";
 
 const Login = ({ isLogin, setLogin }) => {
   const [isSpace, setSpace] = useState(-1);
@@ -50,7 +52,16 @@ const Login = ({ isLogin, setLogin }) => {
               />
             </div>
 
-            <div>
+            <div className="flex flex-col justify-evenly w-full h-[70%] text-sm mt-8">
+              <button onClick={GoogleAuth} className="w-full h-11 bg-white-gradient text-black rounded-md">
+                <div className="flex justify-evenly text-lg items-center">
+                  <span>Continue with google</span>
+                  <FcGoogle />
+                </div>
+              </button>
+            </div>
+
+            <div className="mt-4">
               New Here?{" "}
               <span
                 onClick={() => setLogin(!isLogin)}

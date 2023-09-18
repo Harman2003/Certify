@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Input from "./inputbox";
 import Button from "./Submit";
 import Animation from "../animation";
+import { FcGoogle } from "react-icons/fc";
+import { GoogleAuth } from "../sign-in/loginApi";
+
 
 const Signup = ({ isLogin, setLogin }) => {
   const [User, setUser] = useState({
@@ -47,7 +50,17 @@ const Signup = ({ isLogin, setLogin }) => {
               />
               <Button States={{ User, setEmpty }} />
             </div>
-
+            <div className="flex flex-col justify-evenly w-full h-[70%] text-sm mt-4">
+              <button
+                onClick={GoogleAuth}
+                className="w-full h-11 bg-white-gradient text-black rounded-md"
+              >
+                <div className="flex justify-evenly text-lg items-center">
+                  <span>Continue with google</span>
+                  <FcGoogle />
+                </div>
+              </button>
+            </div>
             <div>
               Have an account?{" "}
               <span
