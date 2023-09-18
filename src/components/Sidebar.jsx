@@ -1,64 +1,64 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useAuth from "../setup/hooks/useAuth";
+import { MdSpaceDashboard as Dash } from "react-icons/md";
+import { HiUserGroup as EventIcon } from "react-icons/hi";
+import { useLocation } from "react-router-dom";
 
 const SideProfile = () => {
-  const { auth } = useAuth();
+    const location = useLocation();
   const list = [
-    { name: "Feed", path: "/social", icon: CgFeed, on: selected[0] },
     {
-      name: "Members",
-      path: "/social/members",
-      icon: Group,
-      on: selected[1],
-    },
-    {
-      name: "My Profile",
-      path: `/profile/${auth.user}`,
-      icon: Profile,
+      name: "DashBoard",
+      path: "/",
+      icon: Dash,
       on: false,
     },
-    { name: "My Posts", path: "/social/my", icon: Post, on: selected[2] },
-    ];
-    
-  return (
-    <div className="flex flex-col top-0 bg-gray-50 border-r-[1px] md:w-[18%] sm:w-[70px] w-[55px] shadow-sm font-NunitoSans">
-      {/* dark */}
-      <div className="relative justify-end w-full md:h-1/2 h-24 bg-black-gradient">
-        <div className="md:flex hidden z-10 absolute flex-col -bottom-16 bg-white rounded-md shadow-lg w-5/6 h-64 pt-10 right-[50%] translate-x-1/2">
-          <img
-            className="min-w-[80px] w-20 h-20 rounded-full self-center p-1 border-2"
-            src="/images/user.png"
-            alt="user logo"
-          />
-          <div className="self-center text-lg text-gray-700">{auth.user}</div>
-          <hr className="m-2" />
+    {
+      name: "Events",
+      path: "/events",
+      icon: EventIcon,
+      on: false,
+    },
+  ]
 
-          {/* User Stats */}
-          <div className="self-center font-NunitoSans w-[92%] mt-3 flex justify-evenly items-center">
-            <div className="flex flex-col items-center">
-              <div>10</div>
-              <div className="text-xs text-gray-400">Posts</div>
+  return (
+    <div className="flex flex-col h-full text-white bg-gray-50 border-r-[1px] w-full shadow-sm font-NunitoSans">
+      <div className="relative justify-end w-full h-full bg-black-gradient">
+        <div className="p-4">
+          <div className="text-white text-4xl">
+            <svg
+              fill="none"
+              height="15%"
+              viewBox="0 0 24 24"
+              width="15%"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.16"
+                d="M7.242 11.083c.449-1.674 2.17-3.394 3.843-3.843l10.434-2.796c1.673-.448 2.666.545 2.218 2.218L20.94 17.096c-.449 1.674-2.17 3.394-3.843 3.843L6.664 23.735c-1.673.448-2.666-.545-2.218-2.218l2.796-10.434Z"
+                fill="#6366F1"
+              ></path>
+              <path
+                d="M3.06 6.9c.448-1.674 2.168-3.394 3.842-3.843L17.336.261c1.673-.448 2.667.545 2.218 2.218l-2.796 10.434c-.449 1.674-2.169 3.394-3.843 3.843L2.481 19.552C.808 20-.185 19.007.263 17.334L3.06 6.9Z"
+                fill="#6366F1"
+              ></path>
+            </svg>
+          </div>
+          <div className="h-16 w-full bg-white/10 rounded-lg mt-4 p-4 flex flex-col justify-center font-openSans">
+            <div className="text-xl font-openSans font-bold tracking-wider">
+              Certify
             </div>
-            <div className="flex flex-col items-center">
-              <div>362</div>
-              <div className="text-xs text-gray-400">Followers</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div>362</div>
-              <div className="text-xs text-gray-400">Following</div>
-            </div>
+            <div className="text-white/70">Create | Save | Validate</div>
           </div>
         </div>
-        {/* background effect */}
-        <div className="md:visible hidden z-0 absolute -bottom-[48px] right-[48%] translate-x-1/2 bg-white rounded-md shadow-md w-5/6 h-64"></div>
-      </div>
-
-      {/* light */}
-      <div className="self-center w-5/6 mt-10 md:mt-28 md:grid gap-2 grid-cols-2">
-        {list.map((option, index) =>
-          element(index, option.name, option.path, option.icon, option.on)
-        )}
+        <hr className="border-white/30 my-4" />
+        <div className="h-2/3  px-4">
+          {list.map((item, i) =>
+            element(i, item.name, item.path, item.icon, item.on)
+          )}
+        </div>
+        <hr className="border-white/30 my-4" />
+        <div></div>
       </div>
     </div>
   );
@@ -69,23 +69,23 @@ function element(index, value, path, Icon, isSelect) {
     <Link
       key={index}
       to={path}
-      className="relative group flex flex-col items-center justify-center h-[75px] py-2"
+      className="relative group flex items-center justify-start h-12 hover:bg-white/10 rounded-lg px-2"
     >
       <Icon
         size={25}
-        className="mb-2 text-gray-400 child group-hover:text-purple-700"
+        className="text-gray-400 group-hover:text-purple-600 "
         style={{ color: isSelect && "rgb(126, 34, 206)" }}
       />
 
       <div className="hidden md:block">
         <div
-          className="group-hover:text-purple-700 text-lg"
+          className=" text-lg ml-2"
           style={{ color: isSelect && "rgb(126, 34, 206)" }}
         >
           {value}
         </div>
         <div
-          className="bg-purple-700 max-w-0 group-hover:max-w-full transition-all duration-500 h-[1px]"
+          className="bg-purple-700 max-w-0 h-[1px]"
           style={{ maxWidth: isSelect && "100%" }}
         ></div>
       </div>

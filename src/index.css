@@ -172,8 +172,7 @@ background-image: linear-gradient(315deg, #e9c086 0%, #d43c3c 74%);
 }
 
 .bg-black-gradient {
-  background-color: #383a45;
-  background: linear-gradient(135deg, #4f5261 0%, #383a45 50%)
+  background-color: rgb(28, 37, 54);
 }
 
 .bg-white-gradient {
