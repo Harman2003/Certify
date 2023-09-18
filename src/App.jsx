@@ -6,27 +6,32 @@ import Homepage from "./pages/welcome/home";
 import SignupOrg from "./pages/welcome/OrgSignUp/signup";
 import LoginOrg from "./pages/welcome/OrgSignIn/login";
 
+import { ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "../src/theme"
 import { QueryClient, QueryClientProvider } from "react-query";
 function App() {
   const client = new QueryClient();
+  const theme = createTheme();
   return (
     <div className="h-screen font-NunitoSans">
       <QueryClientProvider client={client}>
-        <Routes>
-          <Route exact path="/" element={<Welcome current={{isLog:false,isOrg:false}} />} />
-          <Route path="/signup" element={<Welcome current={{isLog:false,isOrg:false}} />} />
-          <Route path="/login" element={<Welcome current={{isLog:true,isOrg:false}} />} />
-          <Route path="/signupOrg" element={<Welcome current={{isLog:false,isOrg:true}} />} />
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route exact path="/" element={<Welcome current={false} />} />
+            <Route path="/signup" element={<Welcome current={false} />} />
+            <Route path="/login" element={<Welcome current={true} />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/home" element={<Homepage/>} />
+            <Route path="/signupOrg" element={<Welcome current={{isLog:false,isOrg:true}} />} />
           <Route path="/loginOrg" element={<Welcome current={{isLog:true,isOrg:true}} />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/home" element={<Homepage/>} />
-          {/* <Route path="/documentation" element={<Documentation />} /> */}
-          {/* <Route path="/faqs" element={<Faqs />} /> */}
-          {/* <Route element={<VerifyAuth/>}> */}
+            {/* <Route path="/documentation" element={<Documentation />} /> */}
+            {/* <Route path="/faqs" element={<Faqs />} /> */}
+            {/* <Route element={<VerifyAuth/>}> */}
             {/* <Route path="/chat" element={<Chat/>} /> */}
-          {/* </Route> */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* </Route> */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ThemeProvider>
       </QueryClientProvider>
     </div>
   );

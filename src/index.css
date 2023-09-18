@@ -241,11 +241,11 @@ background: linear-gradient(151deg, rgba(250,240,255,1) 45%, rgba(196,131,246,1)
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #535252;
+  background-color: #eae6e6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #efecec;
+  background-color: #6e6969;
   border-radius: 5px;
 }
 
