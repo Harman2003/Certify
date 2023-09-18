@@ -28,10 +28,11 @@ const SideProfile = () => {
           <div className="text-white text-4xl">
             <svg
               fill="none"
-              height="15%"
+              // height="15%"
               viewBox="0 0 24 24"
-              width="15%"
+              // width="15%"
               xmlns="http://www.w3.org/2000/svg"
+              className="h-[100%] w-[100%] md:h-[15%] md:w-[15%]"
             >
               <path
                 opacity="0.16"
@@ -44,7 +45,7 @@ const SideProfile = () => {
               ></path>
             </svg>
           </div>
-          <div className="h-16 w-full bg-white/10 rounded-lg mt-4 p-4 flex flex-col justify-center font-openSans">
+          <div className="h-16 w-full bg-white/10 rounded-lg mt-4 p-4 flex-col justify-center font-openSans hidden md:flex">
             <div className="text-xl font-openSans font-bold tracking-wider">
               Certify
             </div>
@@ -93,7 +94,7 @@ function element(index, value, path, Icon, isSelect) {
       {/* hover-title */}
       <div className="hidden md:opacity-0 transition-opacity duration-300 group-hover:block absolute z-20 top-5 left-14 md:left-2 p-1 rounded-lg whitespace-nowrap bg-gray-700 text-white">
         <div className="relative z-20">{value}</div>
-        <div className="absolute top-2 -left-1 z- bg-gray-700 h-4 w-4  skew-x-12 -rotate-[38deg] "></div>
+        <div className="absolute top-2 -left-1 bg-gray-700 h-4 w-4  skew-x-12 -rotate-[38deg]"></div>
       </div>
     </Link>
   );
