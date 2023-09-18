@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Welcome from "./pages/welcome/welcome";
-import NotFound from "./pages/404/notFound"
+import NotFound from "./pages/404/notFound";
+import Admin from "./pages/admin/admin";
 import { QueryClient, QueryClientProvider } from "react-query";
 function App() {
   const client = new QueryClient();
@@ -11,7 +12,7 @@ function App() {
           <Route exact path="/" element={<Welcome current={false} />} />
           <Route path="/signup" element={<Welcome current={false} />} />
           <Route path="/login" element={<Welcome current={true} />} />
-          {/* <Route path="/home" element={<Home />} /> */}
+          <Route path="/admin" element={<Admin />} />
           {/* <Route path="/documentation" element={<Documentation />} /> */}
           {/* <Route path="/faqs" element={<Faqs />} /> */}
           {/* <Route element={<VerifyAuth/>}> */}

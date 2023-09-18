@@ -29,7 +29,7 @@ const Button = ({ usernameRef, passwordRef, isSpace }) => {
   useEffect(() => {
     if (status == 200) {
       setTimeout(() => {
-        const from = location.state?.from?.pathname || `/chat`;
+        const from = location.state?.from?.pathname || `/admin`;
         navigate(from, { replace: true });
       }, 2000);
     }

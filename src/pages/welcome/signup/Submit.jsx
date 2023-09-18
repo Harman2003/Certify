@@ -9,21 +9,24 @@ const Button = ({ States }) => {
   const [passMatch, setpass] = useState(false);
   const [status, setStatus] = useState(-1);
   const navigate = useNavigate();
-  const [loginStatus, loginLoading, login]= useLogin()
+  const [loginStatus, loginLoading, login] = useLogin();
 
-  const {mutate, isLoading}= useMutation(register, {
-    onSuccess: data => {
-      login({username:User['Username'].trim(),password:User['Password'].trim()});
+  const { mutate, isLoading } = useMutation(register, {
+    onSuccess: (data) => {
+      login({
+        username: User["Username"].trim(),
+        password: User["Password"].trim(),
+      });
       setStatus(data);
     },
-    onError: err => {
+    onError: (err) => {
       console.log(err);
       setStatus(err.response.status);
       setTimeout(() => {
         setStatus(0);
       }, 3000);
-    }
-} )
+    },
+  });
 
   const signup = async () => {
     if (
@@ -44,14 +47,12 @@ const Button = ({ States }) => {
       return;
     }
 
-     mutate(User);
-     
+    mutate(User);
   };
 
-  console.log(status)
   if (loginStatus == 200) {
     setTimeout(() => {
-      navigate(`/chat`);
+      navigate(`/admin`);
     }, 2000);
   }
 
@@ -68,18 +69,19 @@ const Button = ({ States }) => {
             This Username has already been taken
           </p>
         )}
-        {(status==500) && (
+        {status == 500 && (
           <p className="text-xs text-red-600 text-center animate-fade">
             Internal Server Error
           </p>
         )}
       </div>
-      <button type="submit"
+      <button
+        type="submit"
         className="w-full h-11 mt-2 bg-purple-gradient text-white rounded-lg place-items-center"
         onClick={signup}
         disabled={isLoading}
       >
-        {isLoading || status==200 ? (
+        {isLoading || status == 200 ? (
           <div className="loader">
             <div></div>
             <div></div>
