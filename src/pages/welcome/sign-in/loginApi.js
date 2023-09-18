@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import useAuth from "../../../setup/hooks/useAuth";
 import axios from "../../../setup/api/axios";
+import { async } from "regenerator-runtime";
 
 export const useLogin = () => {
   // Global Auth Context
-  const {setAuth} = useAuth();
+  const { setAuth } = useAuth();
 
   const apiCall = async (data) => {
     const response = await axios.post(
@@ -15,17 +16,17 @@ export const useLogin = () => {
         password: data.password,
       },
       {
-        headers:{'Content-Type': 'application/json'},
+        headers: { "Content-Type": "application/json" },
         withCredentials: true,
       }
-    )
+    );
     return response;
-  }
+  };
 
   const [status, setStatus] = useState(0);
   const { mutate, isLoading } = useMutation(apiCall, {
     onSuccess: (response) => {
-      console.log(response)
+      console.log(response);
       const accessToken = response.data?.accessToken;
       const user = response.data?.username;
       setAuth({ user, accessToken });
@@ -37,8 +38,14 @@ export const useLogin = () => {
       if (!err?.response) {
         setStatus(500);
       } else setStatus(err.response.status);
-    }
-  })
+    },
+  });
 
-  return [status, isLoading, (data) => mutate(data)]
-}
+  return [status, isLoading, (data) => mutate(data)];
+};
+
+export const GoogleAuth = async() => {
+  const response = await axios.get("/auth/google");
+  console.log(response);
+  return response;
+};
