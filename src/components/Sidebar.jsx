@@ -9,13 +9,13 @@ const SideProfile = () => {
   const list = [
     {
       name: "DashBoard",
-      path: "/",
+      path: "/admin/",
       icon: Dash,
       on: false,
     },
     {
       name: "Events",
-      path: "/events",
+      path: "/admin/events",
       icon: EventIcon,
       on: false,
     },

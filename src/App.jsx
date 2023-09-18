@@ -3,9 +3,6 @@ import Welcome from "./pages/welcome/welcome";
 import NotFound from "./pages/404/notFound";
 import Admin from "./pages/admin/admin";
 import Homepage from "./pages/welcome/home";
-import SignupOrg from "./pages/welcome/OrgSignUp/signup";
-import LoginOrg from "./pages/welcome/OrgSignIn/login";
-
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "../src/theme"
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -20,10 +17,10 @@ function App() {
             <Route exact path="/" element={<Welcome current={false} />} />
             <Route path="/signup" element={<Welcome current={false} />} />
             <Route path="/login" element={<Welcome current={true} />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/*" element={<Admin />} />
             <Route path="/home" element={<Homepage/>} />
             <Route path="/signupOrg" element={<Welcome current={{isLog:false,isOrg:true}} />} />
-          <Route path="/loginOrg" element={<Welcome current={{isLog:true,isOrg:true}} />} />
+            <Route path="/loginOrg" element={<Welcome current={{isLog:true,isOrg:true}} />} />
             {/* <Route path="/documentation" element={<Documentation />} /> */}
             {/* <Route path="/faqs" element={<Faqs />} /> */}
             {/* <Route element={<VerifyAuth/>}> */}
