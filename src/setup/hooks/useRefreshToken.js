@@ -15,18 +15,20 @@ const useRefreshToken = () => {
         },
         withCredentials: true,
       });
-      console.log(response);
+      // console.log(response);
       localStorage.setItem(
         "auth",
         JSON.stringify({
           user: response.data.username,
           accessToken: response.data.accessToken,
+          role: response.data.role
         })
       );
 
       setAuth({
         user: response.data.username,
         accessToken: response.data.accessToken,
+        role: response.data.role
       });
 
       return {

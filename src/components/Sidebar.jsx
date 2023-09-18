@@ -5,17 +5,17 @@ import { HiUserGroup as EventIcon } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 
 const SideProfile = () => {
-    const location = useLocation();
+  const location = useLocation();
   const list = [
     {
       name: "DashBoard",
-      path: "/",
+      path: "/admin/",
       icon: Dash,
       on: false,
     },
     {
       name: "Events",
-      path: "/events",
+      path: "/admin/events",
       icon: EventIcon,
       on: false,
     },

@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const handleLogin = async (req, res) => {
-  console.log(req.body)
-  const { nameOrmail, password } = req.body;
+  
+  const { nameOrmail, password , role} = req.body;
   if (!nameOrmail || !password) return res.sendStatus(401)
 
   let foundUser;
@@ -21,6 +21,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       {
         username: foundUser.username,
+        role: foundUser.role 
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "10m" }
@@ -28,6 +29,7 @@ const handleLogin = async (req, res) => {
     const refreshToken = jwt.sign(
       {
         username: foundUser.username,
+        role: foundUser.role
       },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
@@ -40,7 +42,7 @@ const handleLogin = async (req, res) => {
       httpOnly: true,
       sameSite: "none",
     });
-    res.json({ accessToken, username:foundUser.username}); 
+    res.json({ accessToken, username:foundUser.username, role:foundUser.role}); 
   }
   else {
     res.sendStatus(401); 

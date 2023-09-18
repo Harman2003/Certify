@@ -4,7 +4,7 @@ import Animation from "../animation";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuth } from "./loginApi";
 
-const Login = ({ isLogin, setLogin,isOrg,setOrg }) => {
+const LoginOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
   const [isSpace, setSpace] = useState(-1);
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -16,15 +16,14 @@ const Login = ({ isLogin, setLogin,isOrg,setOrg }) => {
         <div className="w-96  rounded-md py-20 shadow-lg">
           <div className="mx-10 h-full flex flex-col items-center">
             <div className="my-4 flex items-center">
-              {/* <div className="bg-logo bg-no-repeat bg-cover w-16 h-16 "></div> */}
-              <div className="text-5xl font-extrabold ">Certify</div>
+              <div className="text-5xl font-extrabold ">CertiFy</div>
             </div>
 
             <div className="flex flex-col justify-evenly w-full h-[70%] text-sm">
               <input
                 ref={usernameRef}
                 type="text"
-                placeholder="Username or E-mail Address"
+                placeholder="Organisation name or E-mail"
                 onChange={handleChange}
                 className="w-full h-11 border-[1px] rounded-sm p-2 mb-4"
               />
@@ -71,7 +70,7 @@ const Login = ({ isLogin, setLogin,isOrg,setOrg }) => {
               </span>
             </div>
             <div className="mt-4">
-              Are You Organisation?{" "}
+              Are You User?{" "}
               <span
                 onClick={() => setOrg(!isOrg)}
                 className="cursor-pointer text-blue-800"
@@ -99,4 +98,4 @@ const Login = ({ isLogin, setLogin,isOrg,setOrg }) => {
   }
 };
 
-export default Login;
+export default LoginOrg;

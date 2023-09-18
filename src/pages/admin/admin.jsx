@@ -1,8 +1,7 @@
 import React from 'react'
 import SideBar from '../../components/Sidebar'
 import Navbar from '../../components/Navbar'
-import Main from '../../components/Main'
-import Certificates from '../../components/Events'
+import DashRoute from '../../components/DashRoute'
 
 const Admin = () => {
   return (
@@ -12,7 +11,7 @@ const Admin = () => {
       </div>
       <div className="h-full w-[calc(100%-55px)] md:w-[82%] sm:w-[calc(100%-70px)] overflow-y-scroll">
         <Navbar />
-        <Certificates />
+        <DashRoute/>
       </div>
     </div>
   );
