@@ -16,12 +16,12 @@ function Homepage() {
 //   };
 
   return (
-    <div className="bg-white min-h-screen overflow-y-scroll">
+    <div className="bg-white min-h-screen overflow-y-scroll font-openSans">
       {/* Red Navbar with Reduced Opacity */}
-      <header className="bg-red-600 bg-opacity-80 py-4">
+      <header className="bg-white/25 shadow-xl bg-opacity-80 py-4">
         <nav className="container mx-auto flex justify-between items-center">
-          <Link to="/" className="text-white text-3xl font-bold">
-            CertificateChain
+          <Link to="/" className="text-black text-3xl font-bold">
+            Certify
           </Link>
           <div className="space-x-4">
         

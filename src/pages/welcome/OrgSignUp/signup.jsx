@@ -4,17 +4,22 @@ import Button from "./Submit";
 import Animation from "../animation";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuth } from "../sign-in/loginApi";
+import ConnectWallet from "./ConnectWallet";
+import { connectContract } from "../../../utils/connectContract";
+import { useAccount } from "wagmi";
+const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
 
-
-const SignupOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
   const [User, setUser] = useState({
     "Full Name": "",
     Username: "",
     "E-mail Address": "",
+    "Organisation Id": "",
     Password: "",
     "Confirm Password": "",
   });
+  
   const [isEmpty, setEmpty] = useState(false);
+  const { address, isConnected } = useAccount();
 
   return (
     <div className="h-full p-2 bg-gray-200 bg-welcome bg-no-repeat bg-cover">
@@ -24,7 +29,6 @@ const SignupOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
           <div className="mx-10 flex flex-col items-center">
             <div className="my-4 flex items-center">
               <div className="bg-logo bg-no-repeat bg-cover w-64 h-14 "></div>
-              {/* <div className="text-5xl font-bold"></div> */}
             </div>
 
             <div className="w-full text-sm">
@@ -37,6 +41,10 @@ const SignupOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
                 State={{ User, setUser, isEmpty }}
               />
               <Input
+                placeholder="Organisation Id"
+                State={{ User, setUser, isEmpty }}
+              />
+              <Input
                 placeholder="Password"
                 State={{ User, setUser, isEmpty }}
               />
@@ -44,6 +52,9 @@ const SignupOrg = ({ isLogin, setLogin,isOrg,setOrg }) => {
                 placeholder="Confirm Password"
                 State={{ User, setUser, isEmpty }}
               />
+
+              <ConnectWallet />
+
               <Button States={{ User, setEmpty }} />
             </div>
             <div className="flex flex-col justify-evenly w-full h-[70%] text-sm mt-4">

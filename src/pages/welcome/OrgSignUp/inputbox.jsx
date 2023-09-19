@@ -21,17 +21,17 @@ const Input = ({ placeholder, State }) => {
 
   // class for text
   let styles =
-    "w-full h-11 border-[1px] rounded-lg p-2 mb-4 hover:border-black text-lg";
+    "w-full h-11 border-[1px] rounded-lg p-2 mb-2 hover:border-black text-lg";
   
   // class for dots (password)
   if (placeholder === 'Password' || placeholder === 'Confirm Password') {
     styles =
-      "w-full h-11 border-[1px] rounded-lg p-2 mb-4 hover:border-black placeholder:text-[18px] text-[25px]";
+      "w-full h-11 border-[1px] rounded-lg p-2 mb-2 hover:border-black placeholder:text-[18px] text-[25px]";
   }
   
   return (
     <div>
-      <div>{placeholder}</div>
+      {/* <div>{placeholder}</div> */}
       <input
         ref={inputRef}
         type={type(placeholder)}
