@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Card,
-  Checkbox,
   Stack,
   Table,
   TableBody,
@@ -16,92 +15,57 @@ import {
 } from "@mui/material";
 import { getInitials } from "../utils/get-initals";
 
-export const CustomersTable = (props) => {
+export const CertificatesTable = (props) => {
   const {
     count = 0,
     items = [],
-    onDeselectAll,
-    onDeselectOne,
     onPageChange = () => {},
     onRowsPerPageChange,
-    onSelectAll,
-    onSelectOne,
     page = 0,
     rowsPerPage = 0,
-    selected = [],
   } = props;
-
-  const selectedSome = selected.length > 0 && selected.length < items.length;
-  const selectedAll = items.length > 0 && selected.length === items.length;
 
   return (
     <Card>
-        <Box sx={{ minWidth: 800 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedAll}
-                    indeterminate={selectedSome}
-                    onChange={(event) => {
-                      if (event.target.checked) {
-                        onSelectAll?.();
-                      } else {
-                        onDeselectAll?.();
-                      }
-                    }}
-                  />
-                </TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Signed Up</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {items.map((customer) => {
-                const isSelected = selected.includes(customer.id);
-                const createdAt = format(customer.createdAt, "dd/MM/yyyy");
+      <Box sx={{ minWidth: 800 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>S.no</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Certificate Id</TableCell>
+              <TableCell>Expired On</TableCell>
+              <TableCell>Created At</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items.map((certificate, i) => {
+              const createdAt = certificate.created_at.substr(0,11);
 
-                return (
-                  <TableRow hover key={customer.id} selected={isSelected}>
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isSelected}
-                        onChange={(event) => {
-                          if (event.target.checked) {
-                            onSelectOne?.(customer.id);
-                          } else {
-                            onDeselectOne?.(customer.id);
-                          }
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={customer.avatar}>
-                          {getInitials(customer.name)}
-                        </Avatar>
-                        <Typography variant="subtitle2">
-                          {customer.name}
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>{customer.email}</TableCell>
-                    <TableCell>
-                      {customer.address.city}, {customer.address.state},{" "}
-                      {customer.address.country}
-                    </TableCell>
-                    <TableCell>{customer.phone}</TableCell>
-                    <TableCell>{createdAt}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </Box>
+              return (
+                <TableRow hover key={i}>
+                  <TableCell>{page * rowsPerPage + (i + 1)}</TableCell>
+                  <TableCell>
+                    <Stack alignItems="center" direction="row" spacing={2}>
+                      <Avatar>{getInitials(certificate.username)}</Avatar>
+                      <Typography variant="subtitle2">
+                        {certificate.username}
+                      </Typography>
+                    </Stack>
+                  </TableCell>
+                  <TableCell>{certificate.email}</TableCell>
+                  <TableCell>
+                    {certificate.id}
+                  </TableCell>
+                  <TableCell>{certificate.expiry}</TableCell>
+                  <TableCell>{createdAt}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Box>
       <TablePagination
         component="div"
         count={count}
@@ -115,16 +79,11 @@ export const CustomersTable = (props) => {
   );
 };
 
-CustomersTable.propTypes = {
+CertificatesTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
-  onDeselectAll: PropTypes.func,
-  onDeselectOne: PropTypes.func,
   onPageChange: PropTypes.func,
   onRowsPerPageChange: PropTypes.func,
-  onSelectAll: PropTypes.func,
-  onSelectOne: PropTypes.func,
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
-  selected: PropTypes.array,
 };

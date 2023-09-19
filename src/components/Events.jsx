@@ -5,6 +5,7 @@ import { CgCloseO } from "react-icons/cg";
 import axios from "../setup/api/axios";
 import EventRow from "./EventRow";
 import Modal from "react-modal";
+import useAuth from "../setup/hooks/useAuth";
 
 const customStyles = {
   content: {
@@ -20,59 +21,40 @@ const customStyles = {
 Modal.setAppElement("body");
 
 const Events = () => {
-  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  const [Events, setEvents] = useState([
-    { EventName: "Saket's Cricket", EventId: "123", Certification: "0" },
-    { EventName: "hackathon", EventId: "124", Certification: "3" },
-    { EventName: "chess", EventId: "123", Certification: "1" },
-    { EventName: "basketball", EventId: "123", Certification: "2" },
-    { EventName: "criket", EventId: "123", Certification: "4" },
-    { EventName: "football", EventId: "123", Certification: "1" },
-    { EventName: "jpmg", EventId: "123", Certification: "1" },
-    { EventName: "heelo c", EventId: "123", Certification: "0" },
-    { EventName: "Join me", EventId: "123", Certification: "0" },
-    { EventName: "badminton", EventId: "123", Certification: "1" },
-    { EventName: "Josh", EventId: "123", Certification: "0" },
-    { EventName: "table-tannis", EventId: "123", Certification: "1" },
-    { EventName: "lawn tennis", EventId: "123", Certification: "2" },
-  ]);
+  const { auth } = useAuth();
+  const [Events, setEvents] = useState([]);
   const [name, setName] = useState("");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // async function fetchData() {
-    //   try {
-    //     console.log("hello");
-    //     // const response = await axios.get("/events");
-    //     console.log("hello");
-    //     const resultList = response.data;
-    //     console.log(resultList);
-    //     setEvents([...resultList]);
-    //   } catch (err) {
-    //     setError(err);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // }
-    // fetchData();
+    async function fetchData() {
+      try {
+        const response = await axios.post("/events", {
+          user:auth.user,
+        });
+        const resultList = response.data;
+        console.log(resultList);
+        setEvents([...resultList]);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
   }, []);
-
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
 
   const AddEvent = async () => {
     const response = await axios.post("/events/add", {
-      name: name,
+      user: auth.user,
+      name:name
     });
     const result = await response.data;
     console.log(result);
     setName("");
-    closeModal();
     setEvents([...Events, result]);
   };
 
@@ -103,7 +85,9 @@ const Events = () => {
         <div>
           <input
             value={name}
-            onChange={handleChange}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             placeholder="Event Name"
             className="border-2 outline-none h-14 rounded-md my-2 p-4"
           ></input>
@@ -121,11 +105,11 @@ const Events = () => {
         <h1>Events</h1>
         <button
           onClick={openModal}
-          className="ml-auto mr-4 w-20 h-11 bg-purple-gradient text-white rounded-md"
+          className="ml-auto mr-4 p-4 bg-purple-gradient text-white rounded-md"
         >
-          <div className="flex justify-evenly text-lg font-bold items-center border-6">
+          <div className="flex justify-evenly text-lg items-center border-6">
             <FaPlus />
-            Add
+            <span className="ml-2">Add Event</span>
           </div>
         </button>
       </div>

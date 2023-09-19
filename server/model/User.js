@@ -2,9 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
+    organisationId:{
+        type: String,
+        // required: true
+    },
+    EthAdress:{
+        type: String,
+        // required: true
+    },
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -14,7 +23,12 @@ const User = new Schema({
         type: String,
         required: true
     },
-    certificateIds: [{type : mongoose.Schema.Types.ObjectId, ref: "Certificate"}]
+    role:{
+        type: Boolean,
+        required: true
+    },
+    certificateIds: [{type : mongoose.Schema.Types.ObjectId, ref: "Certificate"}],
+    eventIds: [{type: mongoose.Schema.Types.ObjectId, ref: "Event"}]
 },{
     timestamps: true
 });

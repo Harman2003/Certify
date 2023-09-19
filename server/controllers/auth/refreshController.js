@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const UserDB = require('../../model/UserCredential');
+const UserDB = require('../../model/User');
 
 const refreshJWT = (req, res) => {
     const cookies = req.cookies;
