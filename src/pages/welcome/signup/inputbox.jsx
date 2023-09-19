@@ -31,7 +31,7 @@ const Input = ({ placeholder, State }) => {
   
   return (
     <div>
-      <div>{placeholder}</div>
+      {/* <div>{placeholder}</div> */}
       <input
         ref={inputRef}
         type={type(placeholder)}

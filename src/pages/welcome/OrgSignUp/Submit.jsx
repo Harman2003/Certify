@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { register } from "./registerApi";
 import { useLogin } from "../sign-in/loginApi";
+import { useAccount } from "wagmi";
 
 const Button = ({ States }) => {
   const { User, setEmpty } = States;
@@ -10,6 +11,8 @@ const Button = ({ States }) => {
   const [status, setStatus] = useState(-1);
   const navigate = useNavigate();
   const [loginStatus, loginLoading, login] = useLogin();
+  const {address, isConnected } = useAccount();
+
 
   const { mutate, isLoading } = useMutation(register, {
     onSuccess: (data) => {
@@ -47,7 +50,7 @@ const Button = ({ States }) => {
       return;
     }
 
-    mutate(User);
+    mutate(User, isConnected?address:"");
   };
 
   if (loginStatus == 200) {
@@ -77,9 +80,14 @@ const Button = ({ States }) => {
       </div>
       <button
         type="submit"
-        className="w-full h-11 mt-2 bg-purple-gradient text-white rounded-lg place-items-center"
+        className="w-full h-11 mt-2 text-white rounded-lg place-items-center"
         onClick={signup}
-        disabled={isLoading}
+        disabled={isLoading || !isConnected}
+        style={{
+          backgroundColor: isConnected
+            ? "rgb(99, 102, 241)"
+            : "rgb(99, 102, 241, 0.4)",
+        }}
       >
         {isLoading || status == 200 ? (
           <div className="loader">
