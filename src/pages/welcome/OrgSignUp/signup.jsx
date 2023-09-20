@@ -8,7 +8,6 @@ import ConnectWallet from "./ConnectWallet";
 import { connectContract } from "../../../utils/connectContract";
 import { useAccount } from "wagmi";
 const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
-
   const [User, setUser] = useState({
     "Full Name": "",
     Username: "",
@@ -17,7 +16,7 @@ const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
     Password: "",
     "Confirm Password": "",
   });
-  
+
   const [isEmpty, setEmpty] = useState(false);
   const { address, isConnected } = useAccount();
 
@@ -27,10 +26,6 @@ const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
         {/* signup */}
         <div className="w-96 rounded-md py-8 shadow-lg">
           <div className="mx-10 flex flex-col items-center">
-            <div className="my-4 flex items-center">
-              <div className="bg-logo bg-no-repeat bg-cover w-64 h-14 "></div>
-            </div>
-
             <div className="w-full text-sm">
               <Input
                 placeholder="OrganisationName"

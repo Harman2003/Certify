@@ -50,7 +50,7 @@ const Button = ({ States }) => {
       return;
     }
 
-    mutate(User, isConnected?address:"");
+    mutate(User, address);
   };
 
   if (loginStatus == 200) {

@@ -36,11 +36,10 @@ function App() {
         <QueryClientProvider client={client}>
           <ThemeProvider theme={theme}>
             <Routes>
-              <Route exact path="/" element={<Welcome current={false} />} />
               <Route path="/signup" element={<Welcome current={false} />} />
               <Route path="/login" element={<Welcome current={true} />} />
               <Route path="/admin/*" element={<Admin />} />
-              <Route path="/home" element={<Homepage />} />
+              <Route path="/" element={<Homepage />} />
               <Route path="/validate" element={<Validation/>} />
               <Route
                 path="/signupOrg"

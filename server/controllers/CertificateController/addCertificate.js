@@ -5,7 +5,7 @@ const axios = require("axios");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const sendVerification = async (email,cerLink) => {
+const sendVerification = async (email,cerLink,name) => {
   try{
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -63,7 +63,7 @@ const sendVerification = async (email,cerLink) => {
       <body>
         <div class="container">
           <h1>Congratulations!</h1>
-          <p>Dear [Recipient's Name],</p>
+          <p>Dear ${name},</p>
           <p>Congratulations on your outstanding achievement! We are thrilled to present you with this beautifully designed certificate to commemorate your success:</p>
           <!-- Replace 'YOUR_CERTIFICATE_LINK' with the actual link to the certificate -->
           <a href="${cerLink}" download>Download Certificate</a>
@@ -112,7 +112,7 @@ const addCerti = async (req, res) => {
   const resp = await axios.post("http://127.0.0.1:5000/generate_certificate", {
     newCor,
   });
-  await sendVerification(newCer.email,resp.data.certificate_url);
+  await sendVerification(newCer.email,resp.data.certificate_url,newCer.username);
   console.log(resp.data.certificate_url);
 
   res.send(newCer);

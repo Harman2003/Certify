@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from "react";
-// import Head from "next/head";
 import { subDays, subHours } from "date-fns";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 import ArrowUpOnSquareIcon from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
@@ -243,6 +242,7 @@ const Certificates = () => {
   // };
 
   const AddCertificate = async () => {
+    setLoading(true);
     const response = await axios.post("/certificates/add", {
       username: name,
       eventid: id,
@@ -250,6 +250,7 @@ const Certificates = () => {
       email: email,
       user: auth.user,
     });
+    setLoading(false);
     const result = await response.data;
     console.log(result);
     setName("");
@@ -309,6 +310,7 @@ const Certificates = () => {
           <div>
             <button
               onClick={AddCertificate}
+              isDisabled={loading}
               className="ml-auto mr-4 px-4 py-2 rounded-lg bg-purple-gradient text-white"
             >
               Add
