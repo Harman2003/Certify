@@ -5,8 +5,8 @@ const axios = require("axios");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const sendVerification = async (email,cerLink,name) => {
-  try{
+const sendVerification = async (email, cerLink, name) => {
+  try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -71,7 +71,7 @@ const sendVerification = async (email,cerLink,name) => {
           <p>Best regards,<br>SIH</p>
         </div>
       </body>
-      </html>`
+      </html>`,
     };
     const info = await transporter.sendMail(mailOptions);
     console.log(info);
@@ -81,41 +81,54 @@ const sendVerification = async (email,cerLink,name) => {
 };
 
 const addCerti = async (req, res) => {
-  var certificateId = req.body.user;
-  var event = await Event.findOne({ _id: req.body.eventid });
-  var len = event.certificateIds.length + 1;
-  certificateId += len;
-  const certificate = await Certificate.create({
-    username: req.body.username,
-    eventName: event.eventname,
-    expiry: req.body.expiry,
-    email: req.body.email,
-    certificateId: certificateId,
-  });
-  event.certificateIds.push(certificate._id);
-  await event.save();
-  const newCer = {
-    username: certificate.username,
-    expiry: certificate.expiry,
-    created_at: certificate.createdAt,
-    email: certificate.email,
-    id: certificate.certificateId,
-  };
-  const newCor = {
-    userName: certificate.username,
-    expiryDate: certificate.expiry,
-    certificateId: certificate.certificateId,
-    eventName: certificate.eventName,
-    organisationName: "hello",
-    organisationId: "nitin1",
-  };
-  const resp = await axios.post("http://127.0.0.1:5000/generate_certificate", {
-    newCor,
-  });
-  await sendVerification(newCer.email,resp.data.certificate_url,newCer.username);
-  console.log(resp.data.certificate_url);
-
-  res.send(newCer);
+  try {
+    var certificateId = req.body.user;
+    const org = await User.findOne({usermane:certificateId});
+    const event = await Event.findOne({ _id: req.body.eventid });
+    var len = event.certificateIds.length + 1;
+    certificateId += len;
+    const certificate = await Certificate.create({
+      username: req.body.username,
+      eventName: event.eventname,
+      expiry: req.body.expiry,
+      email: req.body.email,
+      certificateId: certificateId,
+      organisationName:org.fullname,
+      organisationId:org.username
+    });
+    event.certificateIds.push(certificate._id);
+    await event.save();
+    const newCer = {
+      username: certificate.username,
+      expiry: certificate.expiry,
+      created_at: certificate.createdAt,
+      email: certificate.email,
+      id: certificate.certificateId,
+    };
+    const newCor = {
+      userName: certificate.username,
+      expiryDate: certificate.expiry,
+      certificateId: certificate.certificateId,
+      eventName: certificate.eventName,
+      organisationName: certificate.organisationName,
+      organisationId: certificate.organisationId,
+    };
+    const resp = await axios.post(
+      "http://127.0.0.1:5000/generate_certificate",
+      {
+        newCor,
+      }
+    );
+    await sendVerification(
+      newCer.email,
+      resp.data.certificate_url,
+      newCer.username
+    );
+    console.log(resp.data.certificate_url);
+    res.send(newCer);
+  } catch (err) {
+    console.log("Error in Part of Certificate Emailing");
+  }
 };
 
 module.exports = addCerti;

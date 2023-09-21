@@ -2,10 +2,11 @@ const bcrypt = require('bcrypt');
 const User = require('../../model/User')
 
 const handleNewUser = async (req, res) => {
-    const {fullname, username, email, password,role} = req.body;
+    const {fullname, username, email, password,role,address} = req.body;
     if (!fullname || !username || !email || !password) return res.status(400).json({ 'message': 'New User Data is Incomplete' });
-
-  
+    if(role==1 && !address){
+        return res.status(400).json({ 'message': 'New User Data is Incomplete' });
+    }
     const duplicate = await User.findOne({ username: username }) 
     if(duplicate)return res.sendStatus(409)//conflict
 
@@ -19,6 +20,7 @@ const handleNewUser = async (req, res) => {
             username: username,
             email: email,
             password: hashedPass,
+            EthAddress:address,
             role:role
         }
         const savedUser = await User.create(newUser);

@@ -10,6 +10,14 @@ const Certificate = new Schema(
       type: String,
       required: true,
     },
+    organisationName:{
+      type:String,
+      required: true,
+    },
+    organisationId:{
+      type:String,
+      required:true,
+    },
     email: {
       type: String,
       required: true,

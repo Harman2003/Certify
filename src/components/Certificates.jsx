@@ -61,6 +61,7 @@ const Certificates = () => {
           eventid: id,
         });
         const resultList = response.data;
+        resultList.reverse();
         setCerti([...resultList]);
       } catch (err) {
         setError(err);
@@ -106,7 +107,7 @@ const Certificates = () => {
     const result = await response.data;
     setName("");
     setEmail("");
-    setCerti([...certi,result]);
+    setCerti([result,...certi]);
   };
 
   DataToShow = useCerti(page,rowsPerPage);
