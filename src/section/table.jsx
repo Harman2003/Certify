@@ -41,7 +41,7 @@ export const CertificatesTable = (props) => {
           </TableHead>
           <TableBody>
             {items.map((certificate, i) => {
-              const createdAt = certificate.created_at.substr(0,11);
+              const createdAt = certificate.created_at.substr(0,10);
 
               return (
                 <TableRow hover key={i}>
@@ -66,7 +66,7 @@ export const CertificatesTable = (props) => {
           </TableBody>
         </Table>
       </Box>
-      {/* <TablePagination
+      <TablePagination
         component="div"
         count={count}
         onPageChange={onPageChange}
@@ -74,7 +74,7 @@ export const CertificatesTable = (props) => {
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      /> */}
+      />
     </Card>
   );
 };
