@@ -5,20 +5,21 @@ import Animation from "../animation";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuth } from "../sign-in/loginApi";
 import ConnectWallet from "./ConnectWallet";
-import { connectContract } from "../../../utils/connectContract";
+// import { connectContract } from "../../../utils/connectContract";
 import { useAccount } from "wagmi";
+
 const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
+  const { address } = useAccount();
   const [User, setUser] = useState({
-    "Full Name": "",
-    Username: "",
-    "E-mail Address": "",
-    "Organisation Id": "",
-    Password: "",
-    "Confirm Password": "",
+    org_name: "",
+    org_email: "",
+    org_id: "",
+    password: "",
+    confirm_pass: "",
+    address: address,
   });
 
   const [isEmpty, setEmpty] = useState(false);
-  const { address, isConnected } = useAccount();
 
   return (
     <div className="h-full p-2 bg-gray-200 bg-welcome bg-no-repeat bg-cover">
@@ -28,11 +29,11 @@ const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
           <div className="mx-10 flex flex-col items-center">
             <div className="w-full text-sm">
               <Input
-                placeholder="OrganisationName"
+                placeholder="Organisation Name"
                 State={{ User, setUser, isEmpty }}
               />
               <Input
-                placeholder="Organisation email"
+                placeholder="Organisation Email"
                 State={{ User, setUser, isEmpty }}
               />
               <Input

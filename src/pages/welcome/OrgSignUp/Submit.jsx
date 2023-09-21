@@ -13,12 +13,11 @@ const Button = ({ States }) => {
   const [loginStatus, loginLoading, login] = useLogin();
   const {address, isConnected } = useAccount();
 
-
   const { mutate, isLoading } = useMutation(register, {
     onSuccess: (data) => {
       login({
-        username: User["Username"].trim(),
-        password: User["Password"].trim(),
+        username: User["org_id"].trim(),
+        password: User["password"].trim(),
       });
       setStatus(data);
     },
@@ -32,25 +31,26 @@ const Button = ({ States }) => {
   });
 
   const signup = async () => {
+    console.log(User);
     if (
-      User["Full Name"].trim() === "" ||
-      User["Username"].trim() === "" ||
-      User["E-mail Address"].trim() === "" ||
-      User["Password"].trim() === "" ||
-      User["Confirm Password"].trim() === ""
-    ) {
-      setEmpty(true);
-      return;
-    }
-    if (User["Password"] != User["Confirm Password"]) {
-      setpass(true);
-      setTimeout(() => {
-        setpass(false);
-      }, 3000);
-      return;
-    }
-
-    mutate(User, address);
+      User["org_name"].trim() === "" ||
+      User["org_id"].trim() === "" ||
+      User["org_email"].trim() === "" ||
+      User["password"].trim() === "" ||
+      User["confirm_pass"].trim() === ""
+      ) {
+        setEmpty(true);
+        console.log("came hrre");
+        return;
+      }
+      if (User["password"] != User["confirm_pass"]) {
+        setpass(true);
+        setTimeout(() => {
+          setpass(false);
+        }, 3000);
+        return;
+      }
+    mutate(User);
   };
 
   if (loginStatus == 200) {
