@@ -12,7 +12,6 @@ const handleLogin = async (req, res) => {
     if (nameOrmail.includes("@"))
       foundUser = await User.findOne({ email: nameOrmail });
     else foundUser = await User.findOne({ username: nameOrmail });
-
     if (!foundUser || foundUser.role != role) return res.sendStatus(401); //unauthorized
 
     const match = await bcrypt.compare(password, foundUser.password);

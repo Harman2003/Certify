@@ -22,6 +22,7 @@ const Button = ({ usernameRef, passwordRef, isSpace }) => {
     CallApi({
       username: usernameRef.current.value.trim(),
       password: passwordRef.current.value.trim(),
+      role:1
     });
   };
 

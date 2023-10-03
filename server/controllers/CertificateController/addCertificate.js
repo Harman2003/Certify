@@ -82,8 +82,13 @@ const sendVerification = async (email, cerLink, name) => {
 
 const addCerti = async (req, res) => {
   try {
+    if(!req.body.username || !req.body.expiry || !req.body.email){
+      console.log(req.body);
+      return;
+    }
+    console.log("hello");
     var certificateId = req.body.user;
-    const org = await User.findOne({usermane:certificateId});
+    const org = await User.findOne({username:req.body.user});
     const event = await Event.findOne({ _id: req.body.eventid });
     var len = event.certificateIds.length + 1;
     certificateId += len;
@@ -127,7 +132,7 @@ const addCerti = async (req, res) => {
     console.log(resp.data.certificate_url);
     res.send(newCer);
   } catch (err) {
-    console.log("Error in Part of Certificate Emailing");
+    console.log("Error in Part of Certificate Emailing",err);
   }
 };
 

@@ -6,17 +6,17 @@ import { FcGoogle } from "react-icons/fc";
 import { GoogleAuth } from "../sign-in/loginApi";
 import ConnectWallet from "./ConnectWallet";
 // import { connectContract } from "../../../utils/connectContract";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 
 const SignupOrg = ({ isLogin, setLogin, isOrg, setOrg }) => {
-  const { address } = useAccount();
+  // const { address } = useAccount();
   const [User, setUser] = useState({
     org_name: "",
     org_email: "",
     org_id: "",
     password: "",
     confirm_pass: "",
-    address: address,
+    // address: address,
   });
 
   const [isEmpty, setEmpty] = useState(false);

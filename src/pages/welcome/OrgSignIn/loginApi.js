@@ -9,12 +9,13 @@ export const useLogin = () => {
   const { setAuth } = useAuth();
 
   const apiCall = async (data) => {
+    console.log(data);
     const response = await axios.post(
       "/auth/login",
       {
         nameOrmail: data.username,
         password: data.password,
-        role:1,
+        role:data.role,
       },
       {
         headers: { "Content-Type": "application/json" },

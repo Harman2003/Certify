@@ -21,8 +21,8 @@ import { useEffect } from "react";
 import Modal from "react-modal";
 import axios from "../setup/api/axios";
 import useAuth from "../setup/hooks/useAuth";
-
-const now = new Date();
+import { useRef } from "react";
+import Papa from 'papaparse';
 
 const customStyles = {
   content: {
@@ -51,6 +51,9 @@ const Certificates = () => {
   const [email, setEmail] = useState("");
   const [exdate, setExdate] = useState("");
   const { auth } = useAuth();
+  const [csvData, setCsvData] = useState([]);
+
+  const importFile = useRef(null);
 
   let DataToShow = [];
 
@@ -90,8 +93,8 @@ const Certificates = () => {
 
   const useCerti = (page, rowsPerPage) => {
     return useMemo(() => {
-      return applyPagination(certi, page, rowsPerPage,setPage);
-    }, [certi,page,rowsPerPage]);
+      return applyPagination(certi, page, rowsPerPage, setPage);
+    }, [certi, page, rowsPerPage]);
   };
 
   const AddCertificate = async () => {
@@ -104,13 +107,34 @@ const Certificates = () => {
       user: auth.user,
     });
     setLoading(false);
-    const result = await response.data;
+    const result = response.data;
     setName("");
     setEmail("");
-    setCerti([result,...certi]);
+    setCerti([result, ...certi]);
   };
 
-  DataToShow = useCerti(page,rowsPerPage);
+  DataToShow = useCerti(page, rowsPerPage);
+
+  const csvUpload = async(e) => {
+    const file = e.target.files[0];
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      complete: async function (results) {
+        results.data.forEach(async(certi)=>{
+          const response = await axios.post("/certificates/add", {
+            username: certi.name,
+            eventid: id,
+            expiry: certi.exdate,
+            email: certi.email,
+            user: auth.user,
+          });
+          const result = response.data;
+          setCerti([result, ...certi]);
+        })
+      },
+    });
+  };
 
   return (
     <>
@@ -164,7 +188,6 @@ const Certificates = () => {
           <div>
             <button
               onClick={AddCertificate}
-              isDisabled={loading}
               className="ml-auto mr-4 px-4 py-2 rounded-lg bg-purple-gradient text-white"
             >
               Add
@@ -188,7 +211,17 @@ const Certificates = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">Candidates Name</Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
+                  <input
+                    ref={importFile}
+                    onChange={csvUpload}
+                    type="file"
+                    accept={[".csv"]}
+                    style={{ display: "none" }}
+                  ></input>
                   <Button
+                    onClick={() => {
+                      importFile.current.click();
+                    }}
                     color="inherit"
                     startIcon={
                       <SvgIcon fontSize="small">
@@ -196,7 +229,7 @@ const Certificates = () => {
                       </SvgIcon>
                     }
                   >
-                    Import
+                    Import CSV
                   </Button>
                   <Button
                     color="inherit"
@@ -206,7 +239,7 @@ const Certificates = () => {
                       </SvgIcon>
                     }
                   >
-                    Export
+                    Export CSV
                   </Button>
                 </Stack>
               </Stack>

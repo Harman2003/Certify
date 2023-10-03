@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { register } from "./registerApi";
-import { useLogin } from "../sign-in/loginApi";
+import { useLogin } from "../OrgSignIn/loginApi";
 import { useAccount } from "wagmi";
 
 const Button = ({ States }) => {
@@ -18,6 +18,7 @@ const Button = ({ States }) => {
       login({
         username: User["org_id"].trim(),
         password: User["password"].trim(),
+        role: 1,
       });
       setStatus(data);
     },
@@ -50,6 +51,7 @@ const Button = ({ States }) => {
         }, 3000);
         return;
       }
+    User["address"]=address;
     mutate(User);
   };
 
