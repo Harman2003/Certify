@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import animateData from "../../assets/clothing.json";
+import animateData from "../../assets/loginanimation.json";
 
 const Animation = ({ width, height }) => {
   return (
@@ -8,7 +8,7 @@ const Animation = ({ width, height }) => {
       animationData={animateData}
       loop={true}
       autoplay={true}
-      style={{ width: width, height: height }}
+      style={{ width: 450, height: height }}
     />
   );
 };
