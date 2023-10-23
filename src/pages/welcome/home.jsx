@@ -121,7 +121,7 @@ function Homepage() {
 
       <div className="font-NunitoSans rounded-lg shadow-2xl p-4 mt-28 text-gray-800 mx-28">
         <h2 className="text-3xl font-semibold mb-4">
-          How to <span className="text-sky-500">Use </span>CertificateChain ?
+          How to <span className="text-sky-500">Use</span> CertificateChain ?
         </h2>
         <ol className="list-decimal pl-6">
           {/* Step 1 */}
