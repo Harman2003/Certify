@@ -13,6 +13,7 @@ export default {
         welcome: "url('/images/welcome.png')",
         logo: "url('/images/logo.jpg')",
         styleAI: "url('/images/FlipkartAI.png')",
+        wave:"url('/images/wave.svg')",
         sample:
           "url(https://rukminim2.flixcart.com/image/832/832/xif0q/jean/h/p/f/30-jk2-mjrp-02-zaysh-original-imagqgf6yh4gtwhx.jpeg?q=70)",
       },
